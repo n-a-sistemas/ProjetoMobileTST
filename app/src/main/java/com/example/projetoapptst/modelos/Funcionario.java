@@ -5,14 +5,35 @@ public class Funcionario {
     private String uuid;
     private String nome;
     private  String profissao;
+    private String imgScr;
+    private String pontos;
+
 
     public Funcionario() {
     }
 
-    public Funcionario(String uuid, String nome, String profissao) {
+    public Funcionario(String uuid, String nome, String profissao, String imgScr) {
         this.uuid = uuid;
         this.nome = nome;
         this.profissao = profissao;
+        this.imgScr= imgScr;
+
+    }
+
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "uuid='" + uuid + '\'' +
+                ", nome='" + nome + '\'' +
+                ", profissao='" + profissao + '\'' +
+                ", imgScr='" + imgScr + '\'' +
+                '}';
+    }
+
+
+
+    public void setImgScr(String imgScr) {
+        this.imgScr = imgScr;
     }
 
     public Funcionario(String nome) {
@@ -43,12 +64,4 @@ public class Funcionario {
         this.profissao = profissao;
     }
 
-    @Override
-    public String toString() {
-        return "Funcionario{" +
-                "uuid='" + uuid + '\'' +
-                ", nome='" + nome + '\'' +
-                ", profissao='" + profissao + '\'' +
-                '}';
-    }
 }

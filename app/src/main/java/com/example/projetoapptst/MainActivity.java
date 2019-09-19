@@ -22,6 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,6 +35,8 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Funcionario> arrayAdapterTarefa;
     private ListView listView;
     private EditText editText;
+    Integer id = 2;
+    private Integer pontus = 900;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +48,10 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit_text_nome);
 
         conectarBanco();
+       listView.invalidateViews();
         eventoBanco();
+        //salvarfuncionario();
+
 
 
     }
@@ -73,10 +79,9 @@ public class MainActivity extends AppCompatActivity {
             listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                    int position;
                 Funcionario fun = (Funcionario) listView.getItemAtPosition(i);
                 Intent intent = new Intent(getApplicationContext(), FuncionariosActivity.class);
-                intent.putExtra(TITULO,fun.getNome());
+                intent.putExtra(TITULO,fun.getUuid());
                 startActivity(intent);
 
                 }
@@ -93,11 +98,30 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void  abrirfuncionario(){
+    public void  salvarfuncionario(){
+        Funcionario funcionario = new Funcionario("1","Yan","pedreiro"
+                ,"https://image.flaticon.com/icons/png/512/38/38002.png" );
+        databaseReference.child("projetotst")
+                .child(funcionario.getUuid())
+                .setValue(funcionario);
 
-    Intent intent = new Intent(this,FuncionariosActivity.class);
-    startActivity(intent);
 
+
+
+
+    }
+
+
+
+    public  void  media(View view){
+
+        for (int i =0; i<id; i++) {
+
+            databaseReference.child("projetotst")
+                    .child(id.toString()).child("pontos")
+                    .setValue(pontus +100);
+
+        }
 
     }
 
