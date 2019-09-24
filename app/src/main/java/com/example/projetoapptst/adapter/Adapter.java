@@ -25,8 +25,6 @@ public class Adapter extends ArrayAdapter<Funcionario> {
         super(context,0,funcionarios);
         this.context = context;
         this.funcionarios = funcionarios;
-
-
     }
 
     @NonNull
@@ -44,10 +42,7 @@ public class Adapter extends ArrayAdapter<Funcionario> {
         Funcionario funcionarioPesquisado= funcionarios.get(position);
 
         TextView nome= funcionarioItem.findViewById(R.id.text_view_nome);
-        nome.setText(funcionarioPesquisado.getNome());
-
-
-
+        nome.setText(funcionarioPesquisado.getEmail());
 
         return funcionarioItem;
 

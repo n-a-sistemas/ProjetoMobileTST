@@ -43,6 +43,8 @@ public class FuncionariosActivity extends AppCompatActivity {
         pesquisa();
 
         checkBox1 = findViewById(R.id.check_box_infraçao1);
+        checkBox2 = findViewById(R.id.checkBox2);
+        checkBox3 = findViewById(R.id.checkBox3);
 
 
     }
@@ -60,14 +62,14 @@ public class FuncionariosActivity extends AppCompatActivity {
         final String titulo = getIntent().getStringExtra(MainActivity.TITULO);
 
 
-        databaseReference.child("projetotst").child(titulo).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("projetotst").child("funcionario").child(titulo).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 textView = findViewById(R.id.textView_1);
                 textView2 = findViewById(R.id.textView2);
 
-                String nome = (dataSnapshot.child("nome").getValue().toString());
+                String nome = (dataSnapshot.child("email").getValue().toString());
                 String profissao = (dataSnapshot.child("profissao").getValue().toString());
 
 
@@ -83,7 +85,6 @@ public class FuncionariosActivity extends AppCompatActivity {
 
                 id = titulo;
 
-
             }
 
             @Override
@@ -96,16 +97,18 @@ public class FuncionariosActivity extends AppCompatActivity {
     }
 
     public void retirar(View view) {
-        if (checkBox1.isChecked()) {
+        if (checkBox1.isChecked() || checkBox2.isChecked() || checkBox3.isChecked()) {
             ponto = 50;
             pontoaTual = pontoaTual - ponto;
 
-            databaseReference.child("projetotst").child(id).child("pontos").setValue(pontoaTual);
-
+            databaseReference.child("projetotst")
+                    .child("funcionario")
+                    .child(id).child("pontos")
+                    .setValue(pontoaTual);
         }
 
     }
 
 
 
-    }
+}

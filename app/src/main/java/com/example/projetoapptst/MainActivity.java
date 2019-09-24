@@ -1,9 +1,12 @@
 package com.example.projetoapptst;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,14 +16,20 @@ import android.widget.ListView;
 
 import com.example.projetoapptst.adapter.Adapter;
 import com.example.projetoapptst.modelos.Funcionario;
+import com.firebase.ui.auth.IdpResponse;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.firebase.ui.auth.AuthUI;
 
+
+import java.net.Authenticator;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.UUID;
 
@@ -35,8 +44,11 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Funcionario> arrayAdapterTarefa;
     private ListView listView;
     private EditText editText;
-    Integer id = 2;
+    Integer id = 3;
     private Integer pontus = 900;
+    private SharedPreferences sharedPreferences;
+    private Funcionario func = new Funcionario();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +60,17 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit_text_nome);
 
         conectarBanco();
+
        listView.invalidateViews();
         eventoBanco();
         //salvarfuncionario();
+        sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        String resultado = sharedPreferences.getString("LOGIN","");
+
+        if (!Boolean.parseBoolean(resultado)) {
+
+            login();
+        }
 
 
 
@@ -63,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void eventoBanco(){
         //Leitura do Banco
-        databaseReference.child("projetotst").addValueEventListener(new ValueEventListener() {
+        databaseReference.child("projetotst").child("funcionario").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             funcionarios.clear();
@@ -105,28 +125,67 @@ public class MainActivity extends AppCompatActivity {
                 .child(funcionario.getUuid())
                 .setValue(funcionario);
 
-
-
-
-
     }
-
-
 
     public  void  media(View view){
 
-        for (int i =0; i<id; i++) {
+        for (Integer i =0; i<id; i++) {
 
             databaseReference.child("projetotst")
-                    .child(id.toString()).child("pontos")
-                    .setValue(pontus +100);
-
+                    .child(i.toString()).child("pontos")
+                    .setValue(300);
         }
 
     }
 
+    public void login(){
+        List<AuthUI.IdpConfig> providers = Arrays.asList(
+                new AuthUI.IdpConfig.EmailBuilder().build(),
+                new AuthUI.IdpConfig.PhoneBuilder().build(),
+                new AuthUI.IdpConfig.GoogleBuilder().build()
+        );
+
+        startActivityForResult(
+                AuthUI.getInstance()
+                        .createSignInIntentBuilder()
+                        .setAvailableProviders(providers)
+                        .build(),123
+        );
+
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == 123){
+            IdpResponse response = IdpResponse.fromResultIntent(data);
+
+            if (resultCode == RESULT_OK){
+
+                if (response.isNewUser()){
+                    this.func.setUuid(FirebaseAuth.getInstance().getCurrentUser().getUid());
+                    this.func.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    this.func.setValido(false);
+                    databaseReference.child("projetotst")
+                            .child("funcionario")
+                            .child(func.getUuid())
+                            .setValue(func);
+                }
+                sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("LOGIN", "true");
+                editor.apply();
+            }
+            else {
+                if (response == null){
+                    finish();
+                }
+
+            }
+
+        }
 
 
-
-
+    }
 }

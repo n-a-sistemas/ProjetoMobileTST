@@ -1,5 +1,7 @@
 package com.example.projetoapptst.modelos;
 
+import android.provider.ContactsContract;
+
 public class Funcionario {
 
     private String uuid;
@@ -7,7 +9,36 @@ public class Funcionario {
     private  String profissao;
     private String imgScr;
     private String pontos;
+    private String email;
+    private boolean valido;
 
+    public String getImgScr() {
+        return imgScr;
+    }
+
+    public String getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(String pontos) {
+        this.pontos = pontos;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public boolean isValido() {
+        return valido;
+    }
+
+    public void setValido(boolean valido) {
+        valido = valido;
+    }
 
     public Funcionario() {
     }
@@ -27,9 +58,11 @@ public class Funcionario {
                 ", nome='" + nome + '\'' +
                 ", profissao='" + profissao + '\'' +
                 ", imgScr='" + imgScr + '\'' +
+                ", pontos='" + pontos + '\'' +
+                ", email='" + email + '\'' +
+                ", valido=" + valido +
                 '}';
     }
-
 
 
     public void setImgScr(String imgScr) {
