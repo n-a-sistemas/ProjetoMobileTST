@@ -33,23 +33,26 @@ public class Adapter extends ArrayAdapter<Funcionario> {
         View funcionarioItem = convertView;
 
 
-        if (funcionarioItem == null){
+        if (funcionarioItem == null) {
             funcionarioItem = LayoutInflater.from(context)
-                    .inflate(R.layout.layout_pesquisa_funcionario,parent,false);
+                    .inflate(R.layout.layout_pesquisa_funcionario, parent, false);
         }
 
 
-        Funcionario funcionarioPesquisado= funcionarios.get(position);
+        Funcionario funcionarioPesquisado = funcionarios.get(position);
 
-        TextView nome= funcionarioItem.findViewById(R.id.text_view_nome);
-        nome.setText(funcionarioPesquisado.getEmail());
+
+            TextView nome = funcionarioItem.findViewById(R.id.text_view_nome);
+            nome.setText(funcionarioPesquisado.getNome());
+
+            TextView profissao = funcionarioItem.findViewById(R.id.textView2);
+            profissao.setText(funcionarioPesquisado.getProfissao());
+
+
 
         return funcionarioItem;
 
-
     }
-
-
 
 
 }

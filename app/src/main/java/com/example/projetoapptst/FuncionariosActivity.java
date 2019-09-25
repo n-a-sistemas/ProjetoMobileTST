@@ -29,6 +29,7 @@ public class FuncionariosActivity extends AppCompatActivity {
     ImageView imageView;
     CheckBox checkBox1, checkBox2, checkBox3;
 
+
     Integer ponto = 0;
     Integer pontoaTual;
     String id;
@@ -41,6 +42,7 @@ public class FuncionariosActivity extends AppCompatActivity {
         setContentView(R.layout.activity_funcionarios);
         conectarBanco();
         pesquisa();
+
 
         checkBox1 = findViewById(R.id.check_box_infraçao1);
         checkBox2 = findViewById(R.id.checkBox2);
@@ -69,8 +71,11 @@ public class FuncionariosActivity extends AppCompatActivity {
                 textView = findViewById(R.id.textView_1);
                 textView2 = findViewById(R.id.textView2);
 
-                String nome = (dataSnapshot.child("email").getValue().toString());
+                String nome = (dataSnapshot.child("nome").getValue().toString());
                 String profissao = (dataSnapshot.child("profissao").getValue().toString());
+
+
+
 
 
                 textView.setText(nome);
@@ -93,21 +98,40 @@ public class FuncionariosActivity extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void retirar(View view) {
-        if (checkBox1.isChecked() || checkBox2.isChecked() || checkBox3.isChecked()) {
+        if (checkBox1.isChecked() ) {
             ponto = 50;
-            pontoaTual = pontoaTual - ponto;
+            pontoaTual = pontoaTual + ponto;
 
             databaseReference.child("projetotst")
                     .child("funcionario")
                     .child(id).child("pontos")
-                    .setValue(pontoaTual);
+                    .setValue(pontoaTual.toString());
+        }
+        if (checkBox2.isChecked()){
+            ponto = 100;
+            pontoaTual = pontoaTual + ponto;
+
+            databaseReference.child("projetotst")
+                    .child("funcionario")
+                    .child(id).child("pontos")
+                    .setValue(pontoaTual.toString());
+        }
+        if (checkBox3.isChecked()){
+            ponto = 250;
+            pontoaTual = pontoaTual + ponto;
+
+            databaseReference.child("projetotst")
+                    .child("funcionario")
+                    .child(id).child("pontos")
+                    .setValue(pontoaTual.toString());
         }
 
     }
+
+
 
 
 

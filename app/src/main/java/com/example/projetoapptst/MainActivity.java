@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -44,14 +46,20 @@ public class MainActivity extends AppCompatActivity {
     private ArrayAdapter<Funcionario> arrayAdapterTarefa;
     private ListView listView;
     private EditText editText;
-    Integer id = 3;
-    private Integer pontus = 900;
     private SharedPreferences sharedPreferences;
     private Funcionario func = new Funcionario();
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
+        String resultado = sharedPreferences.getString("LOGIN","");
+
+        if (!Boolean.parseBoolean(resultado)) {
+
+            login();
+        }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -63,18 +71,12 @@ public class MainActivity extends AppCompatActivity {
 
        listView.invalidateViews();
         eventoBanco();
-        //salvarfuncionario();
-        sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
-        String resultado = sharedPreferences.getString("LOGIN","");
 
-        if (!Boolean.parseBoolean(resultado)) {
-
-            login();
-        }
 
 
 
     }
+
     private void  conectarBanco(){
         FirebaseApp.initializeApp(MainActivity.this);
         firebaseDatabase = FirebaseDatabase.getInstance();
@@ -118,25 +120,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void  salvarfuncionario(){
-        Funcionario funcionario = new Funcionario("1","Yan","pedreiro"
-                ,"https://image.flaticon.com/icons/png/512/38/38002.png" );
-        databaseReference.child("projetotst")
-                .child(funcionario.getUuid())
-                .setValue(funcionario);
-
-    }
-
-    public  void  media(View view){
-
-        for (Integer i =0; i<id; i++) {
-
-            databaseReference.child("projetotst")
-                    .child(i.toString()).child("pontos")
-                    .setValue(300);
-        }
-
-    }
 
     public void login(){
         List<AuthUI.IdpConfig> providers = Arrays.asList(
@@ -158,7 +141,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 123){
+        if (requestCode == 123 ){
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
             if (resultCode == RESULT_OK){
@@ -183,9 +166,30 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             }
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_activity,menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int id= item.getItemId();
+
+        if (id==R.id.id_sair){
+            sharedPreferences = getSharedPreferences("LOGIN",Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("LOGIN","false");
+            editor.apply();
+            login();
 
         }
-
-
+        return super.onOptionsItemSelected(item);
     }
+
 }
