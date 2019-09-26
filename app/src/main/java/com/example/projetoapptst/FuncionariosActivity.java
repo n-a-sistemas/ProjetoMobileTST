@@ -3,15 +3,12 @@ package com.example.projetoapptst;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.projetoapptst.modelos.Funcionario;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,7 +24,8 @@ public class FuncionariosActivity extends AppCompatActivity {
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     ImageView imageView;
-    CheckBox checkBox1, checkBox2, checkBox3;
+    CheckBox checkBoxBonificacao1,
+            checkBoxBonificacao2, checkBoxinfra1,checkBoxinfra2, checkBoxinfra3;
 
 
     Integer ponto = 0;
@@ -43,10 +41,11 @@ public class FuncionariosActivity extends AppCompatActivity {
         conectarBanco();
         pesquisa();
 
-
-        checkBox1 = findViewById(R.id.check_box_infraçao1);
-        checkBox2 = findViewById(R.id.checkBox2);
-        checkBox3 = findViewById(R.id.checkBox3);
+        checkBoxBonificacao1 = findViewById(R.id.check_box_bonificacao1);
+        checkBoxBonificacao2 = findViewById(R.id.check_box_bonificacao2);
+        checkBoxinfra1 = findViewById(R.id.check_box_infracao1);
+        checkBoxinfra2 = findViewById(R.id.checkBox_infracao2);
+        checkBoxinfra3 = findViewById(R.id.check_box_infracao3);
 
 
     }
@@ -75,9 +74,6 @@ public class FuncionariosActivity extends AppCompatActivity {
                 String profissao = (dataSnapshot.child("profissao").getValue().toString());
 
 
-
-
-
                 textView.setText(nome);
                 textView2.setText(profissao);
 
@@ -101,7 +97,7 @@ public class FuncionariosActivity extends AppCompatActivity {
     }
 
     public void retirar(View view) {
-        if (checkBox1.isChecked() ) {
+        if (checkBoxBonificacao1.isChecked() ) {
             ponto = 50;
             pontoaTual = pontoaTual + ponto;
 
@@ -110,7 +106,7 @@ public class FuncionariosActivity extends AppCompatActivity {
                     .child(id).child("pontos")
                     .setValue(pontoaTual.toString());
         }
-        if (checkBox2.isChecked()){
+        if (checkBoxBonificacao2.isChecked()){
             ponto = 100;
             pontoaTual = pontoaTual + ponto;
 
@@ -119,9 +115,9 @@ public class FuncionariosActivity extends AppCompatActivity {
                     .child(id).child("pontos")
                     .setValue(pontoaTual.toString());
         }
-        if (checkBox3.isChecked()){
-            ponto = 250;
-            pontoaTual = pontoaTual + ponto;
+        if (checkBoxinfra1.isChecked()||checkBoxinfra2.isChecked()||checkBoxinfra3.isChecked()){
+            ponto = 100;
+            pontoaTual = pontoaTual - ponto;
 
             databaseReference.child("projetotst")
                     .child("funcionario")
@@ -130,9 +126,6 @@ public class FuncionariosActivity extends AppCompatActivity {
         }
 
     }
-
-
-
 
 
 }

@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".FuncionariosActivity">
 
+    <CheckBox
+        android:id="@+id/checkBox_infracao2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="CheckBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/check_box_infracao1" />
+
     <TextView
         android:id="@+id/textView_1"
         android:layout_width="wrap_content"
@@ -38,7 +49,7 @@
         tools:srcCompat="@tools:sample/avatars[1]" />
 
     <CheckBox
-        android:id="@+id/check_box_infraçao1"
+        android:id="@+id/check_box_bonificacao1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -49,7 +60,7 @@
         app:layout_constraintTop_toBottomOf="@+id/textView2" />
 
     <CheckBox
-        android:id="@+id/checkBox2"
+        android:id="@+id/check_box_bonificacao2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -57,27 +68,37 @@
         android:text="CheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/check_box_infraçao1" />
+        app:layout_constraintTop_toBottomOf="@+id/check_box_bonificacao1" />
 
     <CheckBox
-        android:id="@+id/checkBox3"
+        android:id="@+id/check_box_infracao1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:text="CheckBox"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+        app:layout_constraintTop_toBottomOf="@+id/check_box_bonificacao2" />
 
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
+        android:layout_marginBottom="32dp"
         android:onClick="retirar"
         android:text="Button"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkBox3" />
+        app:layout_constraintTop_toBottomOf="@+id/check_box_infracao3" />
+
+    <CheckBox
+        android:id="@+id/check_box_infracao3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="CheckBox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkBox_infracao2" />
 </androidx.constraintlayout.widget.ConstraintLayout>

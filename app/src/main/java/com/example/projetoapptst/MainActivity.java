@@ -8,6 +8,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.projetoapptst.adapter.Adapter;
 import com.example.projetoapptst.modelos.Funcionario;
@@ -59,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
 
             login();
         }
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -68,12 +70,26 @@ public class MainActivity extends AppCompatActivity {
         editText = findViewById(R.id.edit_text_nome);
 
         conectarBanco();
+        listView.invalidateViews();
 
-       listView.invalidateViews();
         eventoBanco();
 
+        editText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
 
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                eventoBanco();
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
 
     }
 
@@ -85,14 +101,18 @@ public class MainActivity extends AppCompatActivity {
 
     private void eventoBanco(){
         //Leitura do Banco
-        databaseReference.child("projetotst").child("funcionario").addValueEventListener(new ValueEventListener() {
+
+        databaseReference.child("projetotst").child("funcionario")
+                .orderByChild("nome")
+                .startAt(editText.getText().toString())
+                .endAt(editText.getText().toString() + "\uf8ff")
+                .addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
             funcionarios.clear();
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 Funcionario funcionario = snapshot.getValue(Funcionario.class);
                 funcionarios.add(funcionario);
-
             }
             arrayAdapterTarefa = new Adapter(MainActivity.this,
                     (ArrayList<Funcionario>)funcionarios);
@@ -116,9 +136,10 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
-
     }
+
+
+
 
 
     public void login(){
