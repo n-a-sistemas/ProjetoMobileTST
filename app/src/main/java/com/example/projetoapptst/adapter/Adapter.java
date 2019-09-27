@@ -50,9 +50,15 @@ public class Adapter extends ArrayAdapter<Funcionario> {
 
 
 
+
+
+
         return funcionarioItem;
 
     }
+
+
+
 
 
 }

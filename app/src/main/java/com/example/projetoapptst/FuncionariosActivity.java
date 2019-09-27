@@ -63,7 +63,8 @@ public class FuncionariosActivity extends AppCompatActivity {
         final String titulo = getIntent().getStringExtra(MainActivity.TITULO);
 
 
-        databaseReference.child("projetotst").child("funcionario").child(titulo).addValueEventListener(new ValueEventListener() {
+        databaseReference.child("projetotst").child("funcionario")
+                .child(titulo).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 

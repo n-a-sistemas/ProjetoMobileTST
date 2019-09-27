@@ -17,6 +17,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.projetoapptst.adapter.Adapter;
@@ -51,10 +52,15 @@ public class MainActivity extends AppCompatActivity {
     private EditText editText;
     private SharedPreferences sharedPreferences;
     private Funcionario func = new Funcionario();
+    private TextView textView;
+    private Integer pontos;
+    private  Integer pontosAtual;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         String resultado = sharedPreferences.getString("LOGIN","");
 
@@ -64,6 +70,8 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        textView = findViewById(R.id.textView_1);
 
         listView = findViewById(R.id.list_view_menu_inicial);
 
@@ -82,12 +90,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                eventoBanco();
+
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                eventoBanco();
             }
         });
 
@@ -113,6 +121,7 @@ public class MainActivity extends AppCompatActivity {
             for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                 Funcionario funcionario = snapshot.getValue(Funcionario.class);
                 funcionarios.add(funcionario);
+
             }
             arrayAdapterTarefa = new Adapter(MainActivity.this,
                     (ArrayList<Funcionario>)funcionarios);
@@ -137,8 +146,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
 
 
@@ -212,5 +219,24 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
+
+
+    public void testeando(View view){
+        for (int u=0; u<funcionarios.size(); u++){
+            pontos = 50;
+
+            pontosAtual =  Integer.parseInt(funcionarios.get(u).getPontos());
+            pontosAtual += pontos;
+
+            databaseReference.child("projetotst").child("funcionario")
+                    .child(funcionarios.get(u).getUuid())
+                    .child("pontos").setValue(pontosAtual.toString());
+        }
+    }
+
+
+
 
 }
