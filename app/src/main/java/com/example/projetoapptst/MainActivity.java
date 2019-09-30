@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -34,8 +35,12 @@ import com.firebase.ui.auth.AuthUI;
 
 
 import java.net.Authenticator;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.UUID;
 
@@ -54,15 +59,18 @@ public class MainActivity extends AppCompatActivity {
     private Funcionario func = new Funcionario();
     private TextView textView;
     private Integer pontos;
-    private  Integer pontosAtual;
-
+    private Integer pontosAtual;
+    private String data;
+    private String dataAtual;
+    String data2;
+    private Button btn;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
-        String resultado = sharedPreferences.getString("LOGIN","");
+        String resultado = sharedPreferences.getString("LOGIN", "");
 
         if (!Boolean.parseBoolean(resultado)) {
 
@@ -71,16 +79,23 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        textView = findViewById(R.id.textView_1);
+        btn= findViewById(R.id.btn_ponto);
+
+        textView = findViewById(R.id.textView_test);
 
         listView = findViewById(R.id.list_view_menu_inicial);
 
         editText = findViewById(R.id.edit_text_nome);
 
+        //btn.setVisibility(View.INVISIBLE);
+
+        DataAtual();
         conectarBanco();
         listView.invalidateViews();
-
         eventoBanco();
+        eventoData();
+
+
 
         editText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -101,13 +116,13 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void  conectarBanco(){
+    private void conectarBanco() {
         FirebaseApp.initializeApp(MainActivity.this);
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
 
-    private void eventoBanco(){
+    private void eventoBanco() {
         //Leitura do Banco
 
         databaseReference.child("projetotst").child("funcionario")
@@ -115,41 +130,40 @@ public class MainActivity extends AppCompatActivity {
                 .startAt(editText.getText().toString())
                 .endAt(editText.getText().toString() + "\uf8ff")
                 .addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-            funcionarios.clear();
-            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                Funcionario funcionario = snapshot.getValue(Funcionario.class);
-                funcionarios.add(funcionario);
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        funcionarios.clear();
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            Funcionario funcionario = snapshot.getValue(Funcionario.class);
+                            funcionarios.add(funcionario);
 
-            }
-            arrayAdapterTarefa = new Adapter(MainActivity.this,
-                    (ArrayList<Funcionario>)funcionarios);
+                        }
+                        arrayAdapterTarefa = new Adapter(MainActivity.this,
+                                (ArrayList<Funcionario>) funcionarios);
 
-            listView.setAdapter(arrayAdapterTarefa);
-            listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Funcionario fun = (Funcionario) listView.getItemAtPosition(i);
-                Intent intent = new Intent(getApplicationContext(), FuncionariosActivity.class);
-                intent.putExtra(TITULO,fun.getUuid());
-                startActivity(intent);
+                        listView.setAdapter(arrayAdapterTarefa);
+                        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                                Funcionario fun = (Funcionario) listView.getItemAtPosition(i);
+                                Intent intent = new Intent(getApplicationContext(), FuncionariosActivity.class);
+                                intent.putExtra(TITULO, fun.getUuid());
+                                startActivity(intent);
 
-                }
-            });
+                            }
+                        });
 
-            }
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
 
-            }
-        });
+                    }
+                });
     }
 
 
-
-    public void login(){
+    public void login() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
                 new AuthUI.IdpConfig.PhoneBuilder().build(),
@@ -160,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
                 AuthUI.getInstance()
                         .createSignInIntentBuilder()
                         .setAvailableProviders(providers)
-                        .build(),123
+                        .build(), 123
         );
 
     }
@@ -169,15 +183,18 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == 123 ){
+        if (requestCode == 123) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
-            if (resultCode == RESULT_OK){
+            if (resultCode == RESULT_OK) {
 
-                if (response.isNewUser()){
+                if (response.isNewUser()) {
                     this.func.setUuid(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     this.func.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
+                    this.func.setNome(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                     this.func.setValido(false);
+                    this.func.setPontos("");
+                    this.func.setImgScr("");
                     databaseReference.child("projetotst")
                             .child("funcionario")
                             .child(func.getUuid())
@@ -187,19 +204,19 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("LOGIN", "true");
                 editor.apply();
-            }
-            else {
-                if (response == null){
+            }else {
+                if (response == null) {
                     finish();
                 }
 
             }
+
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_activity,menu);
+        getMenuInflater().inflate(R.menu.menu_activity, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -207,12 +224,12 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        int id= item.getItemId();
+        int id = item.getItemId();
 
-        if (id==R.id.id_sair){
-            sharedPreferences = getSharedPreferences("LOGIN",Context.MODE_PRIVATE);
+        if (id == R.id.id_sair) {
+            sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("LOGIN","false");
+            editor.putString("LOGIN", "false");
             editor.apply();
             login();
 
@@ -221,21 +238,58 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-    public void testeando(View view){
-        for (int u=0; u<funcionarios.size(); u++){
+    public void testeando(View view) {
+        for (int u = 0; u < funcionarios.size(); u++) {
             pontos = 50;
 
-            pontosAtual =  Integer.parseInt(funcionarios.get(u).getPontos());
+            pontosAtual = Integer.parseInt(funcionarios.get(u).getPontos());
             pontosAtual += pontos;
 
             databaseReference.child("projetotst").child("funcionario")
                     .child(funcionarios.get(u).getUuid())
                     .child("pontos").setValue(pontosAtual.toString());
+
+            databaseReference.child("projetotst")
+                    .child("ultima_pontuacao").setValue(dataAtual);
         }
     }
 
+    public void eventoData() {
+
+        databaseReference.child("projetotst")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        data = (dataSnapshot.child("ultima_pontuacao").getValue().toString());
+
+                       if (data.equals(dataAtual)){
+                            btn.setEnabled(false);
+                        }
+                        else{
+                           btn.setEnabled(true);
+                       }
+
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+        }
+
+        public void DataAtual(){
+
+            long date = System.currentTimeMillis();
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            dataAtual = sdf.format(date);
+
+
+
+    }
 
 
 
