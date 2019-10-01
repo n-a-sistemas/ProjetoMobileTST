@@ -10,7 +10,7 @@ public class Funcionario {
     private String imgScr;
     private String pontos;
     private String email;
-    private boolean valido;
+    private String valido;
 
     public String getImgScr() {
         return imgScr;
@@ -28,17 +28,18 @@ public class Funcionario {
         return email;
     }
 
+    public String getValido() {
+        return valido;
+    }
+
+    public void setValido(String valido) {
+        this.valido = valido;
+    }
+
     public void setEmail(String email) {
         this.email = email;
     }
 
-    public boolean isValido() {
-        return valido;
-    }
-
-    public void setValido(boolean valido) {
-        valido = valido;
-    }
 
     public Funcionario() {
     }

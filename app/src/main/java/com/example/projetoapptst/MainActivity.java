@@ -62,12 +62,15 @@ public class MainActivity extends AppCompatActivity {
     private Integer pontosAtual;
     private String data;
     private String dataAtual;
-    String data2;
     private Button btn;
+    private Boolean validar;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        conectarBanco();
 
         sharedPreferences = getSharedPreferences("LOGIN", Context.MODE_PRIVATE);
         String resultado = sharedPreferences.getString("LOGIN", "");
@@ -76,8 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
             login();
         }
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+
 
         btn= findViewById(R.id.btn_ponto);
 
@@ -87,13 +89,13 @@ public class MainActivity extends AppCompatActivity {
 
         editText = findViewById(R.id.edit_text_nome);
 
-        //btn.setVisibility(View.INVISIBLE);
+
 
         DataAtual();
-        conectarBanco();
         listView.invalidateViews();
         eventoBanco();
         eventoData();
+        adm();
 
 
 
@@ -149,7 +151,6 @@ public class MainActivity extends AppCompatActivity {
                                 Intent intent = new Intent(getApplicationContext(), FuncionariosActivity.class);
                                 intent.putExtra(TITULO, fun.getUuid());
                                 startActivity(intent);
-
                             }
                         });
 
@@ -186,13 +187,14 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 123) {
             IdpResponse response = IdpResponse.fromResultIntent(data);
 
+
             if (resultCode == RESULT_OK) {
 
                 if (response.isNewUser()) {
                     this.func.setUuid(FirebaseAuth.getInstance().getCurrentUser().getUid());
                     this.func.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
                     this.func.setNome(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
-                    this.func.setValido(false);
+                    this.func.setValido("false");
                     this.func.setPontos("");
                     this.func.setImgScr("");
                     databaseReference.child("projetotst")
@@ -204,7 +206,13 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("LOGIN", "true");
                 editor.apply();
-            }else {
+                adm();
+
+
+
+            }
+            else {
+
                 if (response == null) {
                     finish();
                 }
@@ -290,7 +298,41 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
+    public void adm(){
+        databaseReference.child("projetotst").child("funcionario")
+                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                        String  valido  = ((String) dataSnapshot.child("valido")
+                                .getValue());
+
+                        validar = Boolean.parseBoolean(valido);
+                        if (validar == false){
+                            Intent intent= new Intent(MainActivity.this,SairActivity.class);
+                            startActivity(intent);
+                            finish();
+
+                        }
+                        else {
+
+
+                        }
 
 
 
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+    }
 }
+
+
+
+
+
