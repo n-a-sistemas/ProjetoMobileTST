@@ -11,6 +11,7 @@ public class Funcionario {
     private String pontos;
     private String email;
     private String valido;
+    private String epiValidade;
 
     public String getImgScr() {
         return imgScr;
@@ -32,6 +33,14 @@ public class Funcionario {
         return valido;
     }
 
+    public String getEpiValidade() {
+        return epiValidade;
+    }
+
+    public void setEpiValidade(String epiValidade) {
+        this.epiValidade = epiValidade;
+    }
+
     public void setValido(String valido) {
         this.valido = valido;
     }
@@ -50,19 +59,6 @@ public class Funcionario {
         this.profissao = profissao;
         this.imgScr= imgScr;
 
-    }
-
-    @Override
-    public String toString() {
-        return "Funcionario{" +
-                "uuid='" + uuid + '\'' +
-                ", nome='" + nome + '\'' +
-                ", profissao='" + profissao + '\'' +
-                ", imgScr='" + imgScr + '\'' +
-                ", pontos='" + pontos + '\'' +
-                ", email='" + email + '\'' +
-                ", valido=" + valido +
-                '}';
     }
 
 
@@ -98,4 +94,17 @@ public class Funcionario {
         this.profissao = profissao;
     }
 
+    @Override
+    public String toString() {
+        return "Funcionario{" +
+                "uuid='" + uuid + '\'' +
+                ", nome='" + nome + '\'' +
+                ", profissao='" + profissao + '\'' +
+                ", imgScr='" + imgScr + '\'' +
+                ", pontos='" + pontos + '\'' +
+                ", email='" + email + '\'' +
+                ", valido='" + valido + '\'' +
+                ", epiValidade='" + epiValidade + '\'' +
+                '}';
+    }
 }

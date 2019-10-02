@@ -36,7 +36,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
         android:enabled="false"
-        android:onClick="testeando"
+        android:onClick="testandoautomacao"
         android:text="Button"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"

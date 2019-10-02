@@ -36,7 +36,12 @@ import com.firebase.ui.auth.AuthUI;
 
 import java.net.Authenticator;
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.time.format.ResolverStyle;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -195,7 +200,7 @@ public class MainActivity extends AppCompatActivity {
                     this.func.setEmail(FirebaseAuth.getInstance().getCurrentUser().getEmail());
                     this.func.setNome(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                     this.func.setValido("false");
-                    this.func.setPontos("");
+                    this.func.setPontos("0");
                     this.func.setImgScr("");
                     databaseReference.child("projetotst")
                             .child("funcionario")
@@ -310,7 +315,8 @@ public class MainActivity extends AppCompatActivity {
 
                         validar = Boolean.parseBoolean(valido);
                         if (validar == false){
-                            Intent intent= new Intent(MainActivity.this,SairActivity.class);
+                            Intent intent= new Intent(MainActivity
+                                    .this,SairActivity.class);
                             startActivity(intent);
                             finish();
 
@@ -321,7 +327,6 @@ public class MainActivity extends AppCompatActivity {
                         }
 
 
-
                     }
 
                     @Override
@@ -330,6 +335,46 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
+
+    public void testandoautomacao(View view) throws ParseException {
+
+
+        for (int i = 0; i < funcionarios.size(); i++)  {
+
+            String epi = funcionarios.get(i).getEpiValidade();
+
+
+
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+            Date strDate =  sdf.parse(epi);
+
+            if (System.currentTimeMillis() > strDate.getTime()) {
+                pontos = 50;
+
+                pontosAtual = Integer.parseInt(funcionarios.get(i).getPontos());
+                pontosAtual += pontos;
+
+
+                databaseReference.child("projetotst").child("funcionario")
+                        .child(funcionarios.get(i).getUuid())
+                        .child("pontos").setValue(pontosAtual.toString());
+
+                //modificaçao de data no banco para limitar o click do botao
+              //  databaseReference.child("projetotst")
+                        //.child("ultima_pontuacao").setValue(dataAtual);
+
+            }
+
+
+        }
+
+
+
+
+    }
+
+
+
 }
 
 
