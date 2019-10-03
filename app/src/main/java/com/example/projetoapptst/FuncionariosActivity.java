@@ -81,7 +81,7 @@ public class FuncionariosActivity extends AppCompatActivity {
                 ImageView imageView = findViewById(R.id.imageView_1);
                 Picasso.get().load(dataSnapshot.child("imgScr")
                         .getValue().toString())
-                        .resize(120, 100).centerCrop().into(imageView);
+                        .resize(120, 120).centerCrop().into(imageView);
 
                 pontoaTual = Integer.parseInt(dataSnapshot.child("pontos").getValue().toString());
 

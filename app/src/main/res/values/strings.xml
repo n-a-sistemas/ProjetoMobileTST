@@ -1,3 +1,12 @@
 <resources>
-    <string name="app_name">ProjetoAppTST</string>
+    <string name="app_name">Segurança do trabalho</string>
+    <string name="btn_pesquisa">Adicionar Pontos</string>
+    <string name="tv_nome">Nome</string>
+    <string name="tv_cargo">Cargo</string>
+    <string name="txt_pesquisa">Nome do funcionário</string>
+    <string name="tv_expulso">Sua conta não possui parâmetros de administrador</string>
+    <string name="btn_expulso">Sair</string>
+    <string name="btn_funcionario">Enviar</string>
+    <string name="check_infracao">Infração</string>
+    <string name="check_bonificacao">Bonificação</string>
 </resources>
