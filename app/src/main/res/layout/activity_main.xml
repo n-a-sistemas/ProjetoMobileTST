@@ -20,10 +20,11 @@
     <EditText
         android:id="@+id/edit_text_nome"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:layout_marginStart="72dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="48dp"
+        android:background="@color/Pesquisa"
         android:ems="10"
         android:hint="@string/txt_pesquisa"
         android:inputType="textPersonName"
@@ -58,9 +59,10 @@
 
     <ImageView
         android:id="@+id/imageView3"
-        android:layout_width="41dp"
-        android:layout_height="45dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_marginTop="16dp"
+        android:background="@color/Pesquisa"
         app:layout_constraintEnd_toStartOf="@+id/edit_text_nome"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_search" />
