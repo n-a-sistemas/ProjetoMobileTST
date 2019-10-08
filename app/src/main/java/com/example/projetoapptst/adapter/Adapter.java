@@ -37,8 +37,6 @@ public class Adapter extends ArrayAdapter<Funcionario> {
             funcionarioItem = LayoutInflater.from(context)
                     .inflate(R.layout.layout_pesquisa_funcionario, parent, false);
         }
-
-
         Funcionario funcionarioPesquisado = funcionarios.get(position);
 
 

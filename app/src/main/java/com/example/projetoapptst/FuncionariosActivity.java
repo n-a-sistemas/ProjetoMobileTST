@@ -3,6 +3,7 @@ package com.example.projetoapptst;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CheckBox;
@@ -18,6 +19,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 public class FuncionariosActivity extends AppCompatActivity {
+    public static final String ID = "com.example.projetoapptst.ID";
 
 
     TextView textView, textView2;
@@ -126,6 +128,13 @@ public class FuncionariosActivity extends AppCompatActivity {
                     .setValue(pontoaTual.toString());
         }
 
+    }
+
+    public void abrirEpi(View view){
+
+        Intent intent = new Intent(FuncionariosActivity.this,EpiActivity.class);
+        intent.putExtra(ID, id);
+        startActivity(intent);
     }
 
 

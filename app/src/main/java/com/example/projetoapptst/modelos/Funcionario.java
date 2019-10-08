@@ -2,6 +2,8 @@ package com.example.projetoapptst.modelos;
 
 import android.provider.ContactsContract;
 
+import java.util.List;
+
 public class Funcionario {
 
     private String uuid;
@@ -12,6 +14,19 @@ public class Funcionario {
     private String email;
     private String valido;
     private String epiValidade;
+    private List<Epi> epis;
+
+    public void adicionaEpi(Epi epi){
+        this.epis.add(epi);
+    }
+
+    public List<Epi> getEpis() {
+        return epis;
+    }
+
+    public void setEpis(List<Epi> epis) {
+        this.epis = epis;
+    }
 
     public String getImgScr() {
         return imgScr;
@@ -105,6 +120,7 @@ public class Funcionario {
                 ", email='" + email + '\'' +
                 ", valido='" + valido + '\'' +
                 ", epiValidade='" + epiValidade + '\'' +
+                ", epis=" + epis +
                 '}';
     }
 }

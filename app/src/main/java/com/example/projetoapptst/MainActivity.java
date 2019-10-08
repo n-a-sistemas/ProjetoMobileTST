@@ -143,7 +143,6 @@ public class MainActivity extends AppCompatActivity {
                         for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                             Funcionario funcionario = snapshot.getValue(Funcionario.class);
                             funcionarios.add(funcionario);
-
                         }
                         arrayAdapterTarefa = new Adapter(MainActivity.this,
                                 (ArrayList<Funcionario>) funcionarios);
