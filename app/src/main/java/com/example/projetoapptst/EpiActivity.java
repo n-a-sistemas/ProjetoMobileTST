@@ -89,11 +89,16 @@ public class EpiActivity extends AppCompatActivity {
         });
     }
     public void adicionarEpi(View v){
-        novosEpis.add(new Epi(UUID.randomUUID().toString(),editTextvalidadeCA.getText().toString(),
-                editTextvalidade.getText().toString(),
-                editTextnome.getText().toString()));
+        Epi eps = new Epi();
+
+        String nome = editTextvalidadeCA.getText().toString();
+        eps.setUid(UUID.randomUUID().toString());
+        eps.setNome(nome);
+        eps.setValidaCA(editTextvalidadeCA.getText().toString());
+        eps.setValidade(editTextvalidade.getText().toString());
         databaseReference.child("projetotst").child("funcionario")
-                .child(ID).child("Epi");
+                .child(ID).child("Epi").child(eps.getUid())
+                .setValue(eps);
 
 
     }
