@@ -13,7 +13,7 @@
         <activity android:name=".SairActivity" />
         <activity
             android:name=".FuncionariosActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".MainActivity" />
         <activity
             android:name=".SplashActivity"
