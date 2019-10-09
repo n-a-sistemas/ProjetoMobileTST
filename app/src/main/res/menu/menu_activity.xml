@@ -3,5 +3,6 @@
 
     <item
         android:id="@+id/id_sair"
-        android:title="Sair" />
+        android:title="Sair"/>
+
 </menu>

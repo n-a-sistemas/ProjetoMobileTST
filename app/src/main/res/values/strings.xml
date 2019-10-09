@@ -14,4 +14,7 @@
     <string name="check_bonificacao">Bonificação</string>
     <string name="btn_epi">Adicionar EPI</string>
     <string name="btn_fun_epi">EPI</string>
+    <string name="tv_validade">Validade</string>
+    <string name="tv_ca">Validade CA</string>
+    <string name="tv_EPI">Nome EPI</string>
 </resources>
