@@ -22,6 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
+        android:background="@drawable/box"
         android:onClick="sair"
         android:text="@string/btn_expulso"
         app:layout_constraintEnd_toEndOf="parent"
