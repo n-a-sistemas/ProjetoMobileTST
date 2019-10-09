@@ -201,6 +201,7 @@ public class MainActivity extends AppCompatActivity {
                     this.func.setValido("false");
                     this.func.setPontos("0");
                     this.func.setImgScr("");
+                    this.func.setProfissao("");
                     databaseReference.child("projetotst")
                             .child("funcionario")
                             .child(func.getUuid())
@@ -250,7 +251,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void testeando(View view) {
+    public void retirarPonto(View view) {
         for (int u = 0; u < funcionarios.size(); u++) {
             pontos = 50;
 
@@ -334,44 +335,6 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
     }
-
-    public void testandoautomacao(View view) throws ParseException {
-
-
-        for (int i = 0; i < funcionarios.size(); i++)  {
-
-            String epi = funcionarios.get(i).getEpiValidade();
-
-
-
-            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-            Date strDate =  sdf.parse(epi);
-
-            if (System.currentTimeMillis() > strDate.getTime()) {
-                pontos = 50;
-
-                pontosAtual = Integer.parseInt(funcionarios.get(i).getPontos());
-                pontosAtual += pontos;
-
-
-                databaseReference.child("projetotst").child("funcionario")
-                        .child(funcionarios.get(i).getUuid())
-                        .child("pontos").setValue(pontosAtual.toString());
-
-                //modificaçao de data no banco para limitar o click do botao
-              //  databaseReference.child("projetotst")
-                        //.child("ultima_pontuacao").setValue(dataAtual);
-
-            }
-
-
-        }
-
-
-
-
-    }
-
 
 
 }

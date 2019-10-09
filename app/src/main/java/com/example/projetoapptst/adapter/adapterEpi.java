@@ -42,7 +42,7 @@ public class adapterEpi extends ArrayAdapter<Epi> {
         TextView nome = epiitem.findViewById(R.id.text_view_nome);
         nome.setText(epipego.getNome());
         TextView validaCA = epiitem.findViewById(R.id.text_view_dataCA);
-        validaCA.setText(epipego.getValidaCA());
+        validaCA.setText(epipego.getValidadeCA());
         TextView validade = epiitem.findViewById(R.id.text_view_validade);
         validade.setText(epipego.getValidade());
 

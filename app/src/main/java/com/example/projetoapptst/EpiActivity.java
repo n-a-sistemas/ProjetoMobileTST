@@ -45,7 +45,7 @@ public class EpiActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_epi);
 
-        editTextnome = findViewById(R.id.edit_text_nome);
+        editTextnome = findViewById(R.id.edit_text_epi_nome);
         editTextvalidade= findViewById(R.id.edit_text_validade);
         editTextvalidadeCA= findViewById(R.id.edit_text_validadeCA);
         listView = findViewById(R.id.list_epi);
@@ -90,14 +90,12 @@ public class EpiActivity extends AppCompatActivity {
     }
     public void adicionarEpi(View v){
         Epi eps = new Epi();
-
-        String nome = editTextvalidadeCA.getText().toString();
-        eps.setUid(UUID.randomUUID().toString());
-        eps.setNome(nome);
-        eps.setValidaCA(editTextvalidadeCA.getText().toString());
+        eps.setUuid(UUID.randomUUID().toString());
+        eps.setNome(editTextnome.getText().toString());
+        eps.setValidadeCA(editTextvalidadeCA.getText().toString());
         eps.setValidade(editTextvalidade.getText().toString());
         databaseReference.child("projetotst").child("funcionario")
-                .child(ID).child("Epi").child(eps.getUid())
+                .child(ID).child("Epi").child(eps.getUuid())
                 .setValue(eps);
 
 

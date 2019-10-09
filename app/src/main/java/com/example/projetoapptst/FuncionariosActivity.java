@@ -48,8 +48,6 @@ public class FuncionariosActivity extends AppCompatActivity {
         checkBoxinfra1 = findViewById(R.id.check_box_infracao1);
         checkBoxinfra2 = findViewById(R.id.checkBox_infracao2);
         checkBoxinfra3 = findViewById(R.id.check_box_infracao3);
-
-
     }
 
 
@@ -119,7 +117,7 @@ public class FuncionariosActivity extends AppCompatActivity {
                     .setValue(pontoaTual.toString());
         }
         if (checkBoxinfra1.isChecked()||checkBoxinfra2.isChecked()||checkBoxinfra3.isChecked()){
-            ponto = 100;
+            ponto = 25;
             pontoaTual = pontoaTual - ponto;
 
             databaseReference.child("projetotst")

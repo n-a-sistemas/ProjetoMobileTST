@@ -4,62 +4,61 @@ import java.util.UUID;
 
 public class Epi {
 
-    private String ValidaCA;
-    private String Validade;
-    private String Nome;
-    private String Uid;
+    private String validadeCA;
+    private String validade;
+    private String nome;
+    private String uuid;
 
 
     public Epi() {
     }
 
-
-    public Epi(String uid,String validaCA, String validade, String nome) {
-        Uid = uid;
-        ValidaCA = validaCA;
-        Validade = validade;
-        Nome = nome;
+    public Epi(String validadeCA, String validade, String nome, String uuid) {
+        this.validadeCA = validadeCA;
+        this.validade = validade;
+        this.nome = nome;
+        this.uuid = uuid;
     }
 
-    public String getUid() {
-        return Uid;
+    public String getValidadeCA() {
+        return validadeCA;
     }
 
-    public void setUid(String uid) {
-        Uid = uid;
-    }
-
-    public String getValidaCA() {
-        return ValidaCA;
-    }
-
-    public void setValidaCA(String validaCA) {
-        ValidaCA = validaCA;
+    public void setValidadeCA(String validadeCA) {
+        this.validadeCA = validadeCA;
     }
 
     public String getValidade() {
-        return Validade;
+        return validade;
     }
 
     public void setValidade(String validade) {
-        Validade = validade;
+        this.validade = validade;
     }
 
     public String getNome() {
-        return Nome;
+        return nome;
     }
 
     public void setNome(String nome) {
-        Nome = nome;
+        this.nome = nome;
+    }
+
+    public String getUuid() {
+        return uuid;
+    }
+
+    public void setUuid(String uuid) {
+        this.uuid = uuid;
     }
 
     @Override
     public String toString() {
         return "Epi{" +
-                "ValidaCA='" + ValidaCA + '\'' +
-                ", Validade='" + Validade + '\'' +
-                ", Nome='" + Nome + '\'' +
-                ", Uid='" + Uid + '\'' +
+                "validadeCA='" + validadeCA + '\'' +
+                ", validade='" + validade + '\'' +
+                ", nome='" + nome + '\'' +
+                ", uuid='" + uuid + '\'' +
                 '}';
     }
 }
