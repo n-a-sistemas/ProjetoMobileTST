@@ -4,7 +4,7 @@
     <string name="tv_nome">Nome</string>
     <string name="tv_cargo">Cargo</string>
     <string name="txt_pesquisa">Nome do funcionário</string>
-    <string name="txt_epi_nome">Digite o nome EPI</string>
+    <string name="txt_epi_nome">Digite o nome do EPI</string>
     <string name="txt_epi_validade">Digite a validade do EPI</string>
     <string name="txt_epi_CA">Digite a validade CA do EPI</string>
     <string name="tv_expulso">Sua conta não possui parâmetros de administrador</string>

@@ -9,15 +9,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EpiActivity"></activity>
-        <activity android:name=".SairActivity" />
+        <activity
+            android:name=".EpiActivity"
+            android:theme="@style/AppTheme.2">
+        </activity>
+
+        <activity
+            android:name=".SairActivity"
+            android:theme="@style/AppTheme.2"/>
+
         <activity
             android:name=".FuncionariosActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:theme="@style/AppTheme.2"/>
+
         <activity android:name=".MainActivity" />
+
         <activity
             android:name=".SplashActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/AppTheme.2">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
