@@ -41,7 +41,7 @@
         android:layout_marginBottom="24dp"
         android:background="@drawable/box"
         android:enabled="false"
-        android:onClick="retirarPonto"
+        android:onClick="darPonto"
         android:text="@string/btn_pesquisa"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:visibility="visible"

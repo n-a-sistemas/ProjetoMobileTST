@@ -171,7 +171,6 @@ public class MainActivity extends AppCompatActivity {
     public void login() {
         List<AuthUI.IdpConfig> providers = Arrays.asList(
                 new AuthUI.IdpConfig.EmailBuilder().build(),
-                new AuthUI.IdpConfig.PhoneBuilder().build(),
                 new AuthUI.IdpConfig.GoogleBuilder().build()
         );
 
@@ -251,7 +250,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public void retirarPonto(View view) {
+    public void darPonto(View view) {
         for (int u = 0; u < funcionarios.size(); u++) {
             pontos = 50;
 

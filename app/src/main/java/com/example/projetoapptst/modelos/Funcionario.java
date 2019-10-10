@@ -13,7 +13,6 @@ public class Funcionario {
     private String pontos;
     private String email;
     private String valido;
-    private String epiValidade;
     private List<Epi> epis;
 
     public void adicionaEpi(Epi epi){
@@ -48,13 +47,6 @@ public class Funcionario {
         return valido;
     }
 
-    public String getEpiValidade() {
-        return epiValidade;
-    }
-
-    public void setEpiValidade(String epiValidade) {
-        this.epiValidade = epiValidade;
-    }
 
     public void setValido(String valido) {
         this.valido = valido;
@@ -119,7 +111,6 @@ public class Funcionario {
                 ", pontos='" + pontos + '\'' +
                 ", email='" + email + '\'' +
                 ", valido='" + valido + '\'' +
-                ", epiValidade='" + epiValidade + '\'' +
                 ", epis=" + epis +
                 '}';
     }

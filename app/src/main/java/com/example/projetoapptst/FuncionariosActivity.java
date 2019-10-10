@@ -1,8 +1,10 @@
 package com.example.projetoapptst;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.projetoapptst.modelos.Funcionario;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -29,6 +32,8 @@ public class FuncionariosActivity extends AppCompatActivity {
     CheckBox checkBoxBonificacao1,
             checkBoxBonificacao2, checkBoxinfra1,checkBoxinfra2, checkBoxinfra3;
 
+    private Funcionario funcionario = new Funcionario();
+
 
     Integer ponto = 0;
     Integer pontoaTual;
@@ -43,11 +48,14 @@ public class FuncionariosActivity extends AppCompatActivity {
         conectarBanco();
         pesquisa();
 
+
         checkBoxBonificacao1 = findViewById(R.id.check_box_bonificacao1);
         checkBoxBonificacao2 = findViewById(R.id.check_box_bonificacao2);
         checkBoxinfra1 = findViewById(R.id.check_box_infracao1);
         checkBoxinfra2 = findViewById(R.id.checkBox_infracao2);
         checkBoxinfra3 = findViewById(R.id.check_box_infracao3);
+
+       // checkbox();
     }
 
 
@@ -97,43 +105,95 @@ public class FuncionariosActivity extends AppCompatActivity {
 
     }
 
+
     public void retirar(View view) {
         if (checkBoxBonificacao1.isChecked() ) {
             ponto = 50;
-            pontoaTual = pontoaTual + ponto;
+            confirmar(ponto);
 
-            databaseReference.child("projetotst")
-                    .child("funcionario")
-                    .child(id).child("pontos")
-                    .setValue(pontoaTual.toString());
+
+
         }
         if (checkBoxBonificacao2.isChecked()){
             ponto = 100;
-            pontoaTual = pontoaTual + ponto;
-
-            databaseReference.child("projetotst")
-                    .child("funcionario")
-                    .child(id).child("pontos")
-                    .setValue(pontoaTual.toString());
+          confirmar(ponto);
         }
         if (checkBoxinfra1.isChecked()||checkBoxinfra2.isChecked()||checkBoxinfra3.isChecked()){
             ponto = 25;
-            pontoaTual = pontoaTual - ponto;
+            retirar(ponto);
 
-            databaseReference.child("projetotst")
-                    .child("funcionario")
-                    .child(id).child("pontos")
-                    .setValue(pontoaTual.toString());
         }
 
     }
 
     public void abrirEpi(View view){
-
         Intent intent = new Intent(FuncionariosActivity.this,EpiActivity.class);
         intent.putExtra(ID, id);
         startActivity(intent);
     }
+
+    public void confirmar(final Integer ponto){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.app_name);
+        builder.setMessage("Voce esta atribuindo " + this.ponto + " pontos, aperte em sim , para confirmar");
+        builder.setIcon(R.drawable.ic_launcher_background);
+        builder.setPositiveButton("sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                pontoaTual = pontoaTual + ponto;
+
+                databaseReference.child("projetotst")
+                        .child("funcionario")
+                        .child(id).child("pontos")
+                        .setValue(pontoaTual.toString());
+
+
+
+            }
+        });  builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
+    public void retirar(final Integer ponto){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.app_name);
+        builder.setMessage("Voce esta retirando " + this.ponto + " pontos, aperte em sim , para retirar");
+        builder.setIcon(R.drawable.ic_launcher_background);
+        builder.setPositiveButton("sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                pontoaTual = pontoaTual - ponto;
+
+                databaseReference.child("projetotst")
+                        .child("funcionario")
+                        .child(id).child("pontos")
+                        .setValue(pontoaTual.toString());
+
+
+
+            }
+        });  builder.setNegativeButton("Não", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+    }
+
 
 
 }
