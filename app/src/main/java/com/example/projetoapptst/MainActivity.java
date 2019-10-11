@@ -100,7 +100,7 @@ public class MainActivity extends AppCompatActivity {
         listView.invalidateViews();
         eventoBanco();
         eventoData();
-        adm();
+
 
 
 
@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = sharedPreferences.edit();
                 editor.putString("LOGIN", "true");
                 editor.apply();
-                adm();
+                adm(FirebaseAuth.getInstance().getCurrentUser().getUid());
 
 
 
@@ -303,9 +303,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-    public void adm(){
+    public void adm(String id){
         databaseReference.child("projetotst").child("funcionario")
-                .child(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                .child(id)
                 .addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
