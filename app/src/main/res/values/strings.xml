@@ -17,7 +17,9 @@
     <string name="tv_EPI">Nome EPI</string>
     <string name="bonificacao1">Bônus de entrega</string>
     <string name="bonificacao2">Relato de problemas</string>
+    <string name="bonificacaog">Bonificação</string>
     <string name="infracao1">EPI não equipado</string>
     <string name="infracao2">Atraso de entrega de EPI</string>
     <string name="infracao3">EPI danificado</string>
+    <string name="infracaog">Infração</string>
 </resources>
