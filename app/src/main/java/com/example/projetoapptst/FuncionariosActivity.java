@@ -134,7 +134,7 @@ public class FuncionariosActivity extends AppCompatActivity {
 
     public void confirmar(final Integer ponto){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.check_bonificacao);
+        builder.setTitle(R.string.bonificacao1);
         builder.setMessage("Você está prestes a atribuir " + this.ponto + " pontos, deseja prosseguir?");
         builder.setIcon(R.drawable.rules);
         builder.setPositiveButton("sim", new DialogInterface.OnClickListener() {
@@ -165,7 +165,7 @@ public class FuncionariosActivity extends AppCompatActivity {
 
     public void retirar(final Integer ponto){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle(R.string.check_infracao);
+        builder.setTitle(R.string.infracao1);
         builder.setMessage("Você está prestes a retirar " + this.ponto + " pontos, deseja prosseguir?");
         builder.setIcon(R.drawable.rules);
         builder.setPositiveButton("sim", new DialogInterface.OnClickListener() {
