@@ -200,8 +200,11 @@ public class MainActivity extends AppCompatActivity {
                     this.func.setNome(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
                     this.func.setValido("false");
                     this.func.setPontos("0");
-                    this.func.setImgScr("");
+                    this.func.setImgScr("https://image.flaticon.com/icons/png/512/38/38002.png");
                     this.func.setProfissao("");
+                    this.func.setCidade("");
+                    this.func.setTelefone("");
+                    this.func.setEndereco("");
                     databaseReference.child("projetotst")
                             .child("funcionario")
                             .child(func.getUuid())
