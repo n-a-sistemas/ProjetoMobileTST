@@ -10,11 +10,14 @@
     <string name="tv_expulso">Sua conta não possui parâmetros de administrador</string>
     <string name="btn_expulso">Sair</string>
     <string name="btn_funcionario">Enviar</string>
-    <string name="check_infracao">Infração</string>
-    <string name="check_bonificacao">Bonificação</string>
     <string name="btn_epi">Adicionar EPI</string>
     <string name="btn_fun_epi">EPI</string>
     <string name="tv_validade">Validade</string>
     <string name="tv_ca">Validade CA</string>
     <string name="tv_EPI">Nome EPI</string>
+    <string name="bonificacao1">Bônus de entrega</string>
+    <string name="bonificacao2">Relato de problemas</string>
+    <string name="infracao1">EPI não equipado</string>
+    <string name="infracao2">Atraso de entrega de EPI</string>
+    <string name="infracao3">EPI danificado</string>
 </resources>
