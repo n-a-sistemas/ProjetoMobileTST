@@ -1,11 +1,14 @@
 package com.example.projetoapptst;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Activity;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -79,6 +82,17 @@ public class EpiActivity extends AppCompatActivity {
                         (ArrayList<Epi>) epis);
                 listView.setAdapter(arrayAdapterEpi);
                 ID=id;
+                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick
+                            (AdapterView<?> adapterView, View view, int i, long l) {
+                        excluirDado(epis.get(i));
+
+
+                        return false;
+
+                    }
+                });
 
             }
 
@@ -98,6 +112,31 @@ public class EpiActivity extends AppCompatActivity {
                 .child(ID).child("Epi").child(eps.getUuid())
                 .setValue(eps);
 
+
+    }
+
+    public void excluirDado(final Epi epi){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(R.string.msg_box);
+        builder.setMessage("Você deseja mesmo remover este Epi?");
+        builder.setIcon(R.drawable.delete);
+        builder.setPositiveButton("sim", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                databaseReference.child("projetotst").child("funcionario")
+                        .child(ID).child("Epi").child(epi.getUuid()).removeValue();
+
+            }
+        });
+        builder.setNegativeButton("nao", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
 
     }
 

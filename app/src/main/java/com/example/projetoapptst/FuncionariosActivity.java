@@ -108,20 +108,27 @@ public class FuncionariosActivity extends AppCompatActivity {
 
     public void retirar(View view) {
         if (checkBoxBonificacao1.isChecked() ) {
-            ponto = 50;
+            ponto = 30;
             confirmar(ponto);
-
 
 
         }
         if (checkBoxBonificacao2.isChecked()){
-            ponto = 100;
+            ponto = 20;
           confirmar(ponto);
         }
-        if (checkBoxinfra1.isChecked()||checkBoxinfra2.isChecked()||checkBoxinfra3.isChecked()){
-            ponto = 25;
+        if (checkBoxinfra1.isChecked()){
+            ponto = 30;
             retirar(ponto);
 
+        }
+        if (checkBoxinfra2.isChecked()){
+            ponto = 15;
+            retirar(ponto);
+        }
+        if (checkBoxinfra3.isChecked()){
+            ponto = 40;
+            retirar(ponto);
         }
 
     }

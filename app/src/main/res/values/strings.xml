@@ -22,4 +22,5 @@
     <string name="infracao2">Atraso de entrega de EPI</string>
     <string name="infracao3">EPI danificado</string>
     <string name="infracaog">Infração</string>
+    <string name="msg_box">Remover EPI</string>
 </resources>
